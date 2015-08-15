@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+<!--    <bean id="triangle" class="com.spring.app.Triangle"> -->
+<!--       <property name="type" value="equilateral"> -->
+         
+<!--       </property> -->
+<!--    </bean> -->
+
+<!-- SECTION FOR ALIAS REF -->
+<!-- <bean id ="triangle" class="com.spring.app.Triangle1" name="aliasoftriangle"> -->
+
+<!--   <property name="pointA" ref="joshita"></property> -->
+<!--   <property name="pointB" ref="secondpoint"></property> -->
+
+<!-- </bean> -->
+
+<!-- <bean id="firstpoint" class="com.spring.app.Points"> -->
+<!--   <property name="x" value="0"></property> -->
+<!--   <property name="y" value="1"></property> -->
+<!-- </bean> -->
+
+<!-- <bean id="secondpoint" class="com.spring.app.Points"> -->
+<!--   <property name="x" value="100"></property> -->
+<!--   <property name="y" value="-1"></property> -->
+<!-- </bean> -->
+
+<!-- <alias name="firstpoint" alias="joshita"></alias> -->
+
+
+ <!-- SECTION FOR LIST --> 
+<!-- <bean id="list" class="com.spring.app.ListImpl"> -->
+<!-- <property name="listOfPoints"> -->
+<!-- <list> -->
+<!--    <ref bean="firstpoint"></ref> -->
+<!--    <ref bean="secondpoint"></ref> -->
+<!-- </list> -->
+<!-- </property> -->
+<!-- </bean> -->
+
+<!-- <bean id="firstpoint" class="com.spring.app.Points"> -->
+<!--   <property name="x" value="333"></property> -->
+<!--   <property name="y" value="222"></property> -->
+<!-- </bean> -->
+
+<!-- <bean id="secondpoint" class="com.spring.app.Points"> -->
+<!--   <property name="x" value="100"></property> -->
+<!--   <property name="y" value="-1"></property> -->
+<!-- </bean> -->
+
+ <!-- AUTOWIRING -->
+<!-- <bean id= "triangle1" class="com.spring.app.Triangle1" autowire="byName"> -->
+<!-- </bean> -->
+<!-- <bean id="firstpoint" class="com.spring.app.Points"> -->
+<!-- <bean id="pointA" class="com.spring.app.Points"> -->
+<!--   <property name="x" value="333"></property> -->
+<!--   <property name="y" value="222"></property> -->
+<!-- </bean> -->
+
+<!-- <bean id="secondpoint" class="com.spring.app.Points"> --> 
+<!-- <bean id="pointB" class="com.spring.app.Points"> -->
+<!--   <property name="x" value="100"></property> -->
+<!--   <property name="y" value="-1"></property> -->
+<!-- </bean> -->
+
+
+<!-- Parent child in bean inheritance + method to call after bean initilization and destroy-->
+<!-- Interface InintilizionBean and DisposableBean to be implemented when we want to call methods after bean is initilized and after tha bean is destroyed -->
+<!-- When we have abstract = true then spring fmwk will not create a bean with id"triangle" but will use the ref as in child bean -->
+<!-- By default if you dont want to specify property of bean then its taken as 0,0 -->
+<bean id="triangle" class="com.spring.app.Triangle1" abstract="true"  init-method="myInint" destroy-method="myDestroy">
+    <property name="pointA" ref="pointOne"></property>
+</bean>
+<bean id="pointOne" class="com.spring.app.Points">
+    <property name="x" value="200"></property>
+    <property name="y" value="200"></property>
+</bean>
+
+<!-- after inheritance we can do -->
+<bean id="triangel1" class="com.spring.app.InitDestroyMethods" parent="triangle">
+    <property name="pointB" ref="secondPoint"></property>
+</bean>
+
+
+<bean id="secondPoint" class="com.spring.app.Points">
+    <property name="x"  value="122"></property>
+    <property name="y"  value="122"></property>
+</bean>
+</beans>
+
+
+
+
+<!-- 
+1. property tag : insert reference
+2.alias
+3.using collections, list set map
+4.autowiring :byName, byType(type of class defined, com.spring.app.Triangle1)(works when we have only one bean definition)
+5.Autowiring is off
+6. Parent child in Bean definition inheritance
+ -->
